@@ -48,7 +48,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    @Transactional
     public void decreaseBalanceBy(Long id, double amount) {
         Customer customer = customerRepository.findById(id).orElseThrow(()-> new RuntimeException("No such customer found"));
         if (customer.getBalance()<amount){
