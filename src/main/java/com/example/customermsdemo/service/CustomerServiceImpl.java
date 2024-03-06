@@ -5,7 +5,6 @@ import com.example.customermsdemo.dto.response.CustomerResponse;
 import com.example.customermsdemo.entity.Customer;
 import com.example.customermsdemo.mapper.CustomerMapper;
 import com.example.customermsdemo.repository.CustomerRepository;
-import com.example.customermsdemo.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,11 +47,22 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void decreaseBalanceBy(Long id, double amount) {
         Customer customer = customerRepository.findById(id).orElseThrow(()-> new RuntimeException("No such customer found"));
         if (customer.getBalance()<amount){
             throw new RuntimeException("Insufficient balance");
         }
-        customerRepository.decreaseBalanceBy(id, amount);
+        customerRepository.decreaseBalanceById(id, amount);
+    }
+
+    @Override
+    @Transactional
+    public void increaseBalanceBy(Long id, double amount) {
+        Customer customer = customerRepository.findById(id).orElseThrow(()-> new RuntimeException("No such customer found"));
+        if (amount<0){
+            throw new RuntimeException("amount can not be less than zero");
+        }
+        customerRepository.increaseBalanceById(id, amount);
     }
 }

@@ -15,4 +15,5 @@ public interface CustomerService {
     List<CustomerResponse> getAll();
 
     void decreaseBalanceBy(Long id, double amount);
+    void increaseBalanceBy(Long id, double amount);
 }

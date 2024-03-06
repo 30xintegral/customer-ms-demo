@@ -31,8 +31,13 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/decreaseBalance/{id}/{amount}")
+    @PatchMapping("/decreaseBalance/{id}/{amount}")
     public void decreaseBalanceBy(@PathVariable Long id, @PathVariable double amount){
         customerService.decreaseBalanceBy(id, amount);
+    }
+
+    @PatchMapping("/increaseBalance/{id}/{amount}")
+    public void increaseBalanceBy(@PathVariable Long id, @PathVariable double amount){
+        customerService.increaseBalanceBy(id, amount);
     }
 }
